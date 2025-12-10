@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Price Curiosity • Save on Household Essentials</title>
+  <meta name="description" content="Global price curiosities that lead you to affordable household essentials." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1115; --card:#171a21; --muted:#99a3b3; --text:#edf2ff; --accent:#5ee3b6; --accent-2:#8ab4f8;
+      --shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 600px at 70% -10%, #16203a 0%, #0f1115 60%);
+      color:var(--text);
+    }
+    header{
+      max-width:1000px; margin:40px auto 20px; padding:0 24px; text-align:center;
+    }
+    h1{font-size:2rem; margin:0 0 8px}
+    .subtitle{color:var(--muted); font-size:1rem}
+    .cta-top{
+      margin-top:16px; display:inline-flex; gap:10px; align-items:center; padding:10px 14px; border-radius:10px;
+      background:rgba(138,180,248,.12); color:var(--text);
+    }
+    .cta-top b{color:var(--accent-2)}
+    main{max-width:1000px; margin:20px auto 60px; padding:0 24px}
+    .grid{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+    }
+    @media (max-width:920px){ .grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+    .card{
+      background:linear-gradient(180deg, #1b2030 0%, #171a21 100%);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:16px; box-shadow:var(--shadow);
+      padding:18px; position:relative; overflow:hidden;
+    }
+    .badge{
+      position:absolute; top:14px; right:14px; font-size:.8rem; color:var(--muted);
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+      padding:6px 10px; border-radius:999px;
+    }
+    .icon{
+      width:40px; height:40px; border-radius:10px; display:grid; place-items:center;
+      background:rgba(94,227,182,.15); color:var(--accent); font-size:22px; margin-bottom:10px;
+    }
+    .title{font-weight:700; font-size:1.05rem; margin:2px 0 6px}
+    .question{color:#dbe5ff; margin:0 0 8px}
+    .fact{color:var(--muted); font-size:.95rem; margin:0 0 14px}
+    .cta{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+    }
+    .cta a{
+      flex:1; display:inline-flex; align-items:center; gap:8px;
+      background:linear-gradient(90deg, #5ee3b6 0%, #8ab4f8 100%);
+      color:#0b1020; font-weight:700; text-decoration:none; padding:12px 14px; border-radius:12px;
+      box-shadow:0 6px 20px rgba(138,180,248,.35);
+      transition:transform .08s ease, box-shadow .2s ease;
+    }
+    .cta a:hover{ transform:translateY(-1px); box-shadow:0 10px 26px rgba(138,180,248,.45); }
+    .cta small{color:var(--muted)}
+    footer{
+      max-width:1000px; margin:0 auto 40px; padding:0 24px; text-align:center; color:var(--muted);
+    }
+    .brand{
+      margin-top:24px; font-size:.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Price curiosities around the world</h1>
+    <p class="subtitle">Compare everyday costs in different places, then save big on household essentials.</p>
+    <div class="cta-top"><span>New here?</span> <b>Shop affordable household items</b> ➜ <span id="hero-link-label"></span></div>
+  </header>
+
+  <main>
+    <section class="grid" id="cards"></section>
+  </main>
+
+  <footer>
+    <p>Questions spark curiosity. Savings happen here.</p>
+    <div class="brand">© Your Brand • Built for fast, focused conversions</div>
+  </footer>
+
+  <script>
+    // 1) Set your destination link once
+    const SHOP_URL = "https://your-shop.example.com/household"; // TODO: replace with your live URL
+
+    // 2) Configure cards (question + fun fact + UTM tag)
+    const cards = [
+      {
+        emoji:"🥤", title:"Coca-Cola 0.5L",
+        question:"How much does a bottle cost where you live?",
+        fact:"In Norway, a 0.5L Coke can be over $3, while in Mexico it’s often under $1.",
+        utm:"coke"
+      },
+      {
+        emoji:"☕", title:"Cappuccino",
+        question:"What’s the average price of a cappuccino in your city?",
+        fact:"Milan averages around $1.50, while Copenhagen is closer to $6.",
+        utm:"cappuccino"
+      },
+      {
+        emoji:"🍔", title:"Big Mac",
+        question:"How much is a Big Mac today in your country?",
+        fact:"Switzerland tops the Big Mac Index at over $7; Egypt is closer to $2.",
+        utm:"bigmac"
+      },
+      {
+        emoji:"🚕", title:"Taxi start fare",
+        question:"What’s the starting fare for a taxi ride where you live?",
+        fact:"New York City starts near $3.30, while Bangkok is about $1.",
+        utm:"taxi"
+      },
+      {
+        emoji:"📱", title:"Latest iPhone",
+        question:"How much does the newest iPhone cost in your country?",
+        fact:"In the U.S. it starts around $999; in Brazil it can exceed $1,500.",
+        utm:"iphone"
+      },
+    ];
+
+    // 3) Render cards
+    const container = document.getElementById("cards");
+    cards.forEach((c, i) => {
+      const utmLink = `${SHOP_URL}?utm_source=price-curiosity&utm_medium=site&utm_campaign=household&utm_content=${encodeURIComponent(c.utm)}`;
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="badge">#${String(i+1).padStart(2,"0")}</div>
+        <div class="icon">${c.emoji}</div>
+        <div class="title">${c.title}</div>
+        <p class="question">${c.question}</p>
+        <p class="fact">${c.fact}</p>
+        <div class="cta">
+          <a href="${utmLink}" aria-label="Shop affordable household essentials">
+            <span>Shop household essentials</span> <span>➜</span>
+          </a>
+          <small>Fast shipping • Low prices</small>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // 4) Top hero link text
+    document.getElementById("hero-link-label").innerHTML = `<a href="${SHOP_URL}" style="color:#8ab4f8; text-decoration:underline;">Open deals</a>`;
+  </script>
+</body>
+</html>
